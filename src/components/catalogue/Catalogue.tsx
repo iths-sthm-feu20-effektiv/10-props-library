@@ -17,12 +17,20 @@ const books: Book[] = [
 const Catalogue = () => {
 	const [bookList, setBookList] = useState(books)
 
+	// Use this function to borrow a book. Updates state in this component
+	const borrowBook = (borrowedBook: Book) => {
+		let newList = bookList.filter(
+			book => book.id !== borrowedBook.id
+		)
+		setBookList(newList)
+	}
+
 	return (
 		<section className="border">
 			<h1> Catalogue</h1>
 
 			<div className="book-container">
-			{ bookList.map(book => <BookCard book={book} />) }
+			{ bookList.map(book => <BookCard book={book} borrowBook={borrowBook} />) }
 
 
 			</div>
