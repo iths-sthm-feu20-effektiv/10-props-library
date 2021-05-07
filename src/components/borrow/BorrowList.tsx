@@ -1,16 +1,20 @@
+import { useState } from 'react'
+import { Book } from '../../types/Book'
+import BookCard from './BookCard'
 
-const BorrowList = () => (
-	<section className="border">
-	   <h1> Borrowed </h1>
 
-		<div className="book-container">
-			<div className="book-card">
-				<h2>Titel</h2>
-				<p> Författare </p>
-				<button> Återlämna </button>
+const BorrowList = () => {
+	const [borrowed, setBorrowed] = useState<Book[]>([])
+
+	return (
+		<section className="border">
+		   <h1> Borrowed </h1>
+
+			<div className="book-container">
+			{ borrowed.map(book => <BookCard book={book} />) }
 			</div>
-		</div>
-	</section>
-)
+		</section>
+	)
+}
 
 export default BorrowList

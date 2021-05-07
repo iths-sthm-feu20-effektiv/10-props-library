@@ -1,9 +1,7 @@
+import { useState } from 'react'
+import BookCard from './BookCard'
+import { Book } from '../../types/Book'
 
-interface Book {
-	id: number,
-	title: string,
-	author: string
-}
 
 const books: Book[] = [
 	{ id: 1, title: 'Fellowship of the ring', author: 'J.R.R. Tolkien' },
@@ -16,24 +14,20 @@ const books: Book[] = [
 ]
 
 
-const Catalogue = () => (
-	<section className="border">
-		<h1> Catalogue</h1>
+const Catalogue = () => {
+	const [bookList, setBookList] = useState(books)
 
-		<div className="book-container">
-		{
-			books.map(book => (
-				<div className="book-card">
-					<h2> {book.title} </h2>
-					<p> {book.author} </p>
-					<button> Låna mig! </button>
-				</div>
-			))
-		}
+	return (
+		<section className="border">
+			<h1> Catalogue</h1>
+
+			<div className="book-container">
+			{ bookList.map(book => <BookCard book={book} />) }
 
 
-		</div>
-	</section>
-)
+			</div>
+		</section>
+	)
+}
 
 export default Catalogue
