@@ -13,16 +13,23 @@ const books: Book[] = [
 	{ id: 7, title: 'Harry Potter och hemligheternas kammare', author: 'J.K. Rowling' }
 ]
 
+interface Props {
+	liftBookBorrowed: (book: Book) => void
+}
 
-const Catalogue = () => {
+const Catalogue = ({ liftBookBorrowed }: Props) => {
 	const [bookList, setBookList] = useState(books)
 
 	// Use this function to borrow a book. Updates state in this component
 	const borrowBook = (borrowedBook: Book) => {
+		// 1. uppdatera state i den här komponenten
+		// 2. informera BorrowList om att en bok blivit utlånad
 		let newList = bookList.filter(
 			book => book.id !== borrowedBook.id
 		)
 		setBookList(newList)
+
+		liftBookBorrowed(borrowedBook)
 	}
 
 	return (
@@ -30,8 +37,7 @@ const Catalogue = () => {
 			<h1> Catalogue</h1>
 
 			<div className="book-container">
-			{ bookList.map(book => <BookCard book={book} borrowBook={borrowBook} />) }
-
+			{ bookList.map(book => <BookCard book={book} borrowBook={borrowBook} key={book.id} />) }
 
 			</div>
 		</section>
